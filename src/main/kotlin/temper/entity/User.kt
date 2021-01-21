@@ -11,5 +11,4 @@ class User(@Id @GeneratedValue val userId: Long? = null, private val firstName: 
     {
         return "${lastName}_$email"
     }
-
 }

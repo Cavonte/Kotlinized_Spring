@@ -12,8 +12,8 @@ enum class ErrorMessages(val message: String)
 
     RESERVATION_DOES_NOT_EXIST("Reservation does not exist."),
 
-    UNAVAILABLE_RESERVATION_DATES("One of the selected date is not available."),
-    RESERVATION_LIMIT_REACHED("Reservation cap reached."),
+    UNAVAILABLE_RESERVATION_DATES("One of the selected date(s) is not available."),
+    RESERVATION_LIMIT_REACHED("Reservation cap reached. Max allowed duration is ${ReservationConstraints.MAX_DURATION_STAY.days} day(s)."),
     DATE_IN_THE_PAST("Reservation start date must be in the future."),
     DATE_TOO_FAR("Reservation arrival date must be within ${ReservationConstraints.MAX_ADVANCE_RESERVATION_DATE.days} day(s)."),
     DATE_TOO_SOON("Reservation must be at least ${ReservationConstraints.MIN_RESERVATION_DATE_BUFFER.days} day(s) in the future."),

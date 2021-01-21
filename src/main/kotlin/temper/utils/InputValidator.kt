@@ -86,7 +86,7 @@ class InputValidator(
             throw InvalidInputException(ErrorMessages.DEPARTURE_DATE_TOO_SOON.message)
         }
 
-        if (ChronoUnit.DAYS.between(arrivalDate, departureDate) > ReservationConstraints.MAX_ALLOWED_DURATION_STAY.days)
+        if (ChronoUnit.DAYS.between(arrivalDate, departureDate) > ReservationConstraints.MAX_DURATION_STAY.days)
         {
             throw InvalidInputException(ErrorMessages.RESERVATION_LIMIT_REACHED.message)
         }

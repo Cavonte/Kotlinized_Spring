@@ -26,8 +26,8 @@ internal class ReservationServiceTest
     private val reservationService = ReservationService(availabilityServiceMock, inputValidator, reservationRepositoryMock)
 
     private val EMAIL = "Daredevil@email.com"
-    private val FIRST_NAME = "Kick"
-    private val LAST_NAME = "Buttowski"
+    private val FIRST_NAME = "Kick Buttowski"
+    private val LAST_NAME = "Suburban"
     private val ARRIVAL_DATE = LocalDate.now().plusDays(1).toString()
     private val DEPARTURE_DATE = LocalDate.now().plusDays(3).toString()
     private val BOOKING_IDENTIFIER = "dedicated_wham@email.com_1234567"
