@@ -20,7 +20,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Build with Maven
+    - name: Build
       run: mvn compile
-    - name: Build with Maven
-      run: mvn test

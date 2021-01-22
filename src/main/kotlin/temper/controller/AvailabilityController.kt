@@ -35,10 +35,14 @@ class AvailabilityController(val availabilityService: AvailabilityService)
             dateList = availabilityService.listAvailableDates(parsedStartDate!!, parsedEndDate!!)
         } catch (exception: InvalidInputException)
         {
-            logger.error("$startDate, $endDate", exception.message)
+            logger.error("$startDate, $endDate :  ${exception.message}")
             return ResponseEntity.badRequest().body((gson.toJson(exception.message)))
+        } catch (exception: Exception)
+        {
+            logger.error("$startDate, $endDate :  ${exception.message}")
+            return ResponseEntity.badRequest().body(gson.toJson("Unexpected Error."))
         }
 
-        return ResponseEntity.ok(dateList.joinToString(", "))
+        return ResponseEntity.ok(gson.toJson(dateList.joinToString(", ")))
     }
 }

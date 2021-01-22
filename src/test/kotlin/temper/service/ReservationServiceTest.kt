@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mock
 import temper.constants.ErrorMessages
 import temper.constants.ReservationConstraints
 import temper.entity.Reservation
@@ -13,21 +12,21 @@ import temper.exception.InvalidInputException
 import temper.repository.ReservationRepository
 import temper.utils.DateUtil
 import temper.utils.InputValidator
+import temper.utils.TestUtils
 import java.time.LocalDate
 
 internal class ReservationServiceTest
 {
-    @Mock
     private val reservationRepositoryMock: ReservationRepository = mock()
 
-    @Mock
     private val availabilityServiceMock: AvailabilityService = mock()
     private val inputValidator = InputValidator(DateUtil())
-    private val reservationService = ReservationService(availabilityServiceMock, inputValidator, reservationRepositoryMock)
+    private val testUtil: TestUtils = TestUtils()
+    private val reservationService = ReservationService(availabilityServiceMock, inputValidator, reservationRepositoryMock, testUtil)
 
-    private val EMAIL = "Daredevil@email.com"
     private val FIRST_NAME = "Kick Buttowski"
     private val LAST_NAME = "Suburban"
+    private val EMAIL = "Daredevil@email.com"
     private val ARRIVAL_DATE = LocalDate.now().plusDays(1).toString()
     private val DEPARTURE_DATE = LocalDate.now().plusDays(3).toString()
     private val BOOKING_IDENTIFIER = "dedicated_wham@email.com_1234567"
