@@ -22,5 +22,3 @@ jobs:
         java-version: 11
     - name: Build
       run: mvn compile
-    - name: Tests
-      run: mvn test
