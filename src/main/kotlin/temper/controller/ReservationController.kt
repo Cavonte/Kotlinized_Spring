@@ -27,11 +27,11 @@ class ReservationController(val reservationService: ReservationService)
             bookingIdentifier = reservationService.bookReservation(email, fName, lName, arrivalDate, departureDate)
         } catch (exception: InvalidInputException)
         {
-            logger.error("$email, $fName, $lName, $arrivalDate, $departureDate", exception.message)
+            logger.error("$email, $fName, $lName, $arrivalDate, $departureDate :  ${exception.message}")
             return ResponseEntity.badRequest().body(gson.toJson(exception.message))
         } catch (exception: Exception)
         {
-            logger.error("$email, $fName, $lName, $arrivalDate, $departureDate", exception.message)
+            logger.error("$email, $fName, $lName, $arrivalDate, $departureDate :  ${exception.message}")
             return ResponseEntity.badRequest().body(gson.toJson("Unexpected Error."))
         }
 
@@ -50,11 +50,11 @@ class ReservationController(val reservationService: ReservationService)
             reservationService.modifyReservation(email, arrivalDate, departureDate, bookingIdentifier)
         } catch (exception: InvalidInputException)
         {
-            logger.error("$email, $arrivalDate, $departureDate", exception.message)
+            logger.error("$email, $arrivalDate, $departureDate :  ${exception.message}")
             return ResponseEntity.badRequest().body((gson.toJson(exception.message)))
         } catch (exception: Exception)
         {
-            logger.error("$email, $arrivalDate, $departureDate", exception.message)
+            logger.error("$email, $arrivalDate, $departureDate :  ${exception.message}")
             return ResponseEntity.badRequest().body(gson.toJson("Unexpected Error."))
         }
 
@@ -75,7 +75,7 @@ class ReservationController(val reservationService: ReservationService)
             return ResponseEntity.badRequest().body((gson.toJson(exception.message)))
         } catch (exception: Exception)
         {
-            logger.error("$email, $bookingIdentifier", exception.message)
+            logger.error("$email, $bookingIdentifier :  ${exception.message}")
             return ResponseEntity.badRequest().body(gson.toJson("Unexpected Error."))
         }
 

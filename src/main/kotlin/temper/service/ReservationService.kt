@@ -8,19 +8,21 @@ import temper.entity.User
 import temper.exception.InvalidInputException
 import temper.repository.ReservationRepository
 import temper.utils.InputValidator
+import temper.utils.TestUtils
 import java.time.LocalDate
 import java.util.concurrent.ThreadLocalRandom
 import javax.transaction.Transactional
 import kotlin.streams.toList
 
 @Service
+@Transactional
 class ReservationService(private val availabilityService: AvailabilityService,
                          private val inputValidator: InputValidator,
-                         private val reservationRepository: ReservationRepository)
+                         private val reservationRepository: ReservationRepository,
+                         private val testUtils: TestUtils)
 {
 
     @Throws(InvalidInputException::class)
-    @Transactional
     fun bookReservation(
             email: String?,
             firstName: String?,
@@ -51,7 +53,6 @@ class ReservationService(private val availabilityService: AvailabilityService,
     }
 
     @Throws(InvalidInputException::class)
-    @Transactional
     fun modifyReservation(email: String?,
                           arrivalDate: String?,
                           departureDate: String?,
@@ -82,12 +83,11 @@ class ReservationService(private val availabilityService: AvailabilityService,
         val newReservations = buildReservationList(newReservationDates, bookingIdentifier, email!!)
         saveReservations(newReservations)
 
-        val outdatedReservationDates = existingReservationsDates.subtract(requestedDates)
+        val outdatedReservationDates = testUtils.getSubtractedDate(existingReservationsDates, requestedDates)
         reservationRepository.deleteByReservationDateIn(outdatedReservationDates)
     }
 
     @Throws(InvalidInputException::class)
-    @Transactional
     fun cancelReservation(email: String?,
                           bookingIdentifier: String?)
     {
