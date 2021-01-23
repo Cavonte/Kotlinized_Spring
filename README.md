@@ -27,7 +27,7 @@ There are 4 Endpoints available.
 
 ## Transactions and Load Handling
 #### Atomicity
-- This application handles the atomicity of Databases with the @Transaction annotation provided by Spring.
+- This application handles the atomicity of Databases operations with the @Transaction annotation provided by Spring.
 This is tested with a call to the main service class and triggering a runtime exception.
 As expected all operations were rollback.
 #### Load Testing
