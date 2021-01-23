@@ -26,10 +26,12 @@ There are 4 Endpoints available.
 ```
 
 ## Transactions and Load Handling
+#### Atomicity
 - This application handles the atomicity of Databases with the @Transaction annotation provided by Spring.
 This is tested with a call to the main service class and triggering a runtime exception.
 As expected all operations were rollback.
-- For the load test. A Gatlin simulation with 300 users gave the following results.
+#### Load Testing
+- For the load test. A Gatlin simulation with 300 concurrent users gave the following results.
 ![Simulation Report](https://github.com/Cavonte/Kotlinized_spring/blob/main/300users.PNG)
 The entire report can be found here.
 (https://github.com/Cavonte/Kotlinized_spring/blob/main/gatlin/recordedsimulation-20210123002812478.7z)
