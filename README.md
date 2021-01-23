@@ -1,15 +1,15 @@
 
-## Reservation System
+# Reservation System
 
 This project is a tentative reservation system for the new island in the Pacific Ocean. Created using Kotlin and Spring.
-### Stack
+## Stack
 - Kotlin
 - Spring Boot/Maven
 - Spring Data/JPA
 - Flyway
 - Mysql
 
-### Endpoints
+## Endpoints
 There are 4 Endpoints available.
 - /listAvailable (startDate, endDate)
 - /reservation (email, fName, lName, arrivalDate, departureDate) 
@@ -25,7 +25,7 @@ There are 4 Endpoints available.
 .check(status.is(400)))
 ```
 
-### Transactions and Load Handling
+## Transactions and Load Handling
 - This application handles the atomicity of Databases with the @Transaction annotation provided by Spring.
 This is tested with a call to the main service class and triggering a runtime exception.
 As expected all operations were rollback.
@@ -34,14 +34,14 @@ As expected all operations were rollback.
 The entire report can be found here.
 (https://github.com/Cavonte/Kotlinized_spring/blob/main/gatlin/recordedsimulation-20210123002812478.7z)
 
-#### Installation
+## Installation
 Requirements
 - Java 11
 - Maven
 - Mysql Instance (See application.properties for credentials)
 - kotlin IDE
 
-#### Setup
+### Setup
 The application will need a mysql instance.
 Use these parameters or update the application.properties file as needed.
 ```
