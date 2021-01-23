@@ -5,10 +5,12 @@ import temper.exception.InvalidInputException
 import temper.repository.ReservationRepository
 import temper.utils.InputValidator
 import java.time.LocalDate
+import javax.transaction.Transactional
 import kotlin.streams.toList
 
 @Service
-class AvailabilityService(val reservationRepository: ReservationRepository, val inputValidator: InputValidator)
+@Transactional
+class AvailabilityService(private val reservationRepository: ReservationRepository, private val inputValidator: InputValidator)
 {
     @Throws(InvalidInputException::class)
     fun listAvailableDates(tentativeStartDate: String?, tentativeEndDate: String?): List<LocalDate>
