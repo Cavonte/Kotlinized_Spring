@@ -12,7 +12,6 @@ import temper.exception.InvalidInputException
 import temper.service.AvailabilityService
 import java.time.LocalDate
 
-
 @RestController
 class AvailabilityController(val availabilityService: AvailabilityService)
 {
@@ -21,17 +20,17 @@ class AvailabilityController(val availabilityService: AvailabilityService)
 
     @GetMapping("/availability", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun listAvailability(@RequestParam(name = "startDate", required = true) startDate: String?,
-                         @RequestParam(name = "endDate", required = true) endDate: String? = LocalDate.now().plusMonths(1).toString()): ResponseEntity<String>
+                         @RequestParam(name = "endDate", required = true) endDate: String?): ResponseEntity<String>
     {
         var parsedStartDate = startDate
         var parsedEndDate = endDate
-        val dateList: List<LocalDate>
 
+        if (startDate == null) parsedStartDate = LocalDate.now().plusDays(1).toString()
+        if (endDate == null) parsedEndDate = LocalDate.now().plusDays(ReservationConstraints.MAX_ADVANCE_RESERVATION_DATE.days.toLong()).toString()
+
+        val dateList: List<LocalDate>
         try
         {
-            if (startDate == null) parsedStartDate = LocalDate.now().plusDays(1).toString()
-            if (endDate == null) parsedEndDate = LocalDate.now().plusDays(ReservationConstraints.MAX_ADVANCE_RESERVATION_DATE.days.toLong()).toString()
-
             dateList = availabilityService.listAvailableDates(parsedStartDate!!, parsedEndDate!!)
         } catch (exception: InvalidInputException)
         {

@@ -10,7 +10,7 @@ enum class ErrorMessages(val message: String)
     MALFORMED_LAST_NAME("Invalid Last Name provided."),
     MALFORMED_BOOKING_IDENTIFIER("Invalid booking identifier provided."),
 
-    RESERVATION_DOES_NOT_EXIST("Reservation does not exist."),
+    RESERVATION_DOES_NOT_EXIST("Reservation does not exist. Verify Email/BookingIdentifier."),
 
     UNAVAILABLE_RESERVATION_DATES("One of the selected date(s) is not available."),
     RESERVATION_LIMIT_REACHED("Reservation cap reached. Max allowed duration is ${ReservationConstraints.MAX_DURATION_STAY.days} day(s)."),

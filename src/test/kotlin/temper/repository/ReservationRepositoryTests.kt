@@ -29,9 +29,9 @@ class ReservationRepositoryTests
     private val BOOKING_ID = "dedicated_wham@email.com_1234567"
     private val FAKE_BOOKING_ID = "wham@email.com_1234567"
     private val EMAIL = "suburban_daredevil@email.com"
-    val startDate = LocalDate.now()
-    val endDate = LocalDate.now().plusDays(4)
-    val reservationList = mutableListOf<Reservation>()
+    private val START_DATE = LocalDate.now()
+    private val END_DATE = LocalDate.now().plusDays(4)
+    private val RESERVATION_LIST = mutableListOf<Reservation>()
 
     private val availabilityServiceMock: AvailabilityService = mock()
     private val inputValidator = InputValidator(DateUtil())
@@ -41,8 +41,8 @@ class ReservationRepositoryTests
     @BeforeAll
     fun setupReservation()
     {
-        startDate.datesUntil(endDate).forEach { date -> reservationList.add(Reservation(null, date, BOOKING_ID, EMAIL)) }
-        reservationRepository.saveAll(reservationList)
+        START_DATE.datesUntil(END_DATE).forEach { date -> RESERVATION_LIST.add(Reservation(null, date, BOOKING_ID, EMAIL)) }
+        reservationRepository.saveAll(RESERVATION_LIST)
 
         reservationService = ReservationService(availabilityServiceMock, inputValidator, reservationRepository, testUtil)
     }
@@ -51,7 +51,7 @@ class ReservationRepositoryTests
     fun transactionCommitTest()
     {
         whenever(testUtil.getSubtractedDate(any(), any())).thenCallRealMethod()
-        reservationService.modifyReservation(EMAIL, startDate.plusDays(2).toString(), endDate.toString(), BOOKING_ID)
+        reservationService.modifyReservation(EMAIL, START_DATE.plusDays(2).toString(), END_DATE.toString(), BOOKING_ID)
         assertFalse(reservationRepository.existsByReservationDateIn(listOf(LocalDate.now())))
     }
 
@@ -61,7 +61,7 @@ class ReservationRepositoryTests
         whenever(testUtil.getSubtractedDate(any(), any())).thenThrow(RuntimeException("Unchecked Exception"))
         try
         {
-            reservationService.modifyReservation(EMAIL, startDate.plusDays(2).toString(), endDate.toString(), BOOKING_ID)
+            reservationService.modifyReservation(EMAIL, START_DATE.plusDays(2).toString(), END_DATE.toString(), BOOKING_ID)
         } catch (exception: RuntimeException)
         {
         }
@@ -96,8 +96,8 @@ class ReservationRepositoryTests
     fun findByBookingIdentifier()
     {
         val savedList = reservationRepository.findByBookingIdentifier(BOOKING_ID)
-        assertEquals(savedList, reservationList)
-        assertTrue(savedList.size == reservationList.size)
+        assertEquals(savedList, RESERVATION_LIST)
+        assertTrue(savedList.size == RESERVATION_LIST.size)
     }
 
     @Test
@@ -111,15 +111,15 @@ class ReservationRepositoryTests
     fun findByLoneDateList()
     {
         val savedList = reservationRepository.findByReservationDateIn(listOf(LocalDate.now()))
-        assertEquals(savedList, listOf(reservationList[0]))
+        assertEquals(savedList, listOf(RESERVATION_LIST[0]))
         assertTrue(savedList.size == 1)
     }
 
     @Test
     fun findByDateList()
     {
-        val savedList = reservationRepository.findByReservationDateIn(startDate.datesUntil(endDate).toList())
-        assertEquals(savedList, reservationList)
+        val savedList = reservationRepository.findByReservationDateIn(START_DATE.datesUntil(END_DATE).toList())
+        assertEquals(savedList, RESERVATION_LIST)
     }
 
     @Test
