@@ -160,6 +160,16 @@ internal class ReservationServiceTest
     }
 
     @Test
+    fun cannotBookReservationWithSameDates()
+    {
+        val exception = assertThrows<InvalidInputException> {
+            reservationService.bookReservation(EMAIL, FIRST_NAME, LAST_NAME, ARRIVAL_DATE, ARRIVAL_DATE)
+        }
+
+        assertEquals(exception.message, ErrorMessages.DEPARTURE_DATE_TOO_SOON.message)
+    }
+
+    @Test
     fun cannotReserveMoreDaysThanLimit()
     {
         val faultyArrivalDate = LocalDate.now().plusDays(1).toString()
@@ -312,6 +322,16 @@ internal class ReservationServiceTest
         }
 
         assertEquals(exception.message, ErrorMessages.MALFORMED_DEPARTURE_DATE.message)
+    }
+
+    @Test
+    fun cannotModifyBookingWithEqualDates()
+    {
+        val exception = assertThrows<InvalidInputException> {
+            reservationService.modifyReservation(EMAIL, ARRIVAL_DATE, ARRIVAL_DATE, BOOKING_IDENTIFIER)
+        }
+
+        assertEquals(exception.message, ErrorMessages.DEPARTURE_DATE_TOO_SOON.message)
     }
 
     @Test

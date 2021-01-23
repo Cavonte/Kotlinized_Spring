@@ -76,6 +76,11 @@ class InputValidator(
             throw InvalidInputException(ErrorMessages.DATE_TOO_SOON.message)
         }
 
+        if (arrivalDate == departureDate)
+        {
+            throw InvalidInputException(ErrorMessages.DEPARTURE_DATE_TOO_SOON.message)
+        }
+
         if (dateUtil.isArrivalDateTooFar(arrivalDate))
         {
             throw InvalidInputException(ErrorMessages.DATE_TOO_FAR.message)
