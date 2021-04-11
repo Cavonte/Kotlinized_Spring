@@ -21,6 +21,8 @@ class AvailabilityService(private val reservationRepository: ReservationReposito
         val startDate = LocalDate.parse(tentativeStartDate)
         val endDate = LocalDate.parse(tentativeEndDate)
 
+
+
         inputValidator.validateAvailabilityDates(startDate, endDate)
 
         val takenDates: List<LocalDate> = getTakenDates(startDate, endDate)
